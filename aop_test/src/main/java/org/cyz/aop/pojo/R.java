@@ -1,0 +1,71 @@
+package org.cyz.aop.pojo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 返回结果
+ */
+public class R extends HashMap<String, Object> {
+	private static final long serialVersionUID = 1L;
+
+	public static final String SUCCESS = "success";
+
+	public static final String EXCEPTION = "exception";
+
+	public static final Integer SUCCESSCODE = 0;
+
+	public static final Integer EXCEPTIONCODE = 500;
+
+	public R() {
+		put("errCode", 0);
+		put("msg", SUCCESS);
+	}
+
+	public R(int code, String msg) {
+		if (code == 2) {// 2为token过期码，在此处不可随意占用
+			code = 500;
+		}
+		put("errCode", code);
+		put("msg", msg);
+	}
+
+	public static R error() {
+		return error(500, "未知异常，请联系管理员");
+	}
+
+	public static R error(String msg) {
+		return error(500, msg);
+	}
+
+	public static R error(int code, String msg) {
+		if (code == 2) {// 2为token过期码，在此处不可随意占用
+			code = 500;
+		}
+		R r = new R();
+		r.put("errCode", code);
+		r.put("msg", msg);
+		return r;
+	}
+
+	public static R ok(String msg) {
+		R r = new R();
+		r.put("msg", msg);
+		return r;
+	}
+
+	public static R ok(Map<String, Object> map) {
+		R r = new R();
+		r.putAll(map);
+		return r;
+	}
+
+	public static R ok() {
+		return new R();
+	}
+
+	public R put(String key, Object value) {
+		super.put(key, value);
+		return this;
+	}
+}
