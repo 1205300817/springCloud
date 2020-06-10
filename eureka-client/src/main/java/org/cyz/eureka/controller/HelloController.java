@@ -32,5 +32,9 @@ public class HelloController {
         }
         return msl;
     }
+    @RequestMapping(value = "sayHello",method = RequestMethod.GET)
+    public String sayHello(){
+        return "Hello World!";
+    }
 
 }
