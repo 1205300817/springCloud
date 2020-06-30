@@ -37,8 +37,8 @@ public class HelloController {
 
     @RequestMapping(value = "sayHello", method = RequestMethod.GET)
     public String sayHello(@RequestParam("name") String name, @RequestParam("remark") String remark) {
-        log.info("remark: {}", remark);
-        return "Hello World！" + name;
+        log.info("name: {}, remark: {}", name, remark);
+        return "Hello World！" + name + remark;
     }
 
 }

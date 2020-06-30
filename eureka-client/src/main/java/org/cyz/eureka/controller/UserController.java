@@ -35,9 +35,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "hello", method = RequestMethod.POST)
-    @ResponseBody
     public String hello(@RequestBody User user) {
         return String.format("Hello World！%s岁的%s", user.getAge(), user.getName());
+    }
+
+    @RequestMapping(value = "sayHello", method = RequestMethod.GET)
+    public String sayHello(@RequestParam("name") String name, @RequestParam("remark") String remark) {
+        log.info("name: {}, remark: {}", name, remark);
+        return "Hello World！" + name + remark;
     }
 
 }
