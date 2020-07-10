@@ -19,6 +19,7 @@ public class UserController {
 
     @Autowired
     private DiscoveryClient client;
+    private static int count_getUserById;
 
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -43,6 +44,14 @@ public class UserController {
     public String sayHello(@RequestParam("name") String name, @RequestParam("remark") String remark) {
         log.info("name: {}, remark: {}", name, remark);
         return "Hello World！" + name + remark;
+    }
+
+    @RequestMapping(value = "getUserById", method = RequestMethod.GET)
+    public User getUserById(Integer id) {
+        User user = new User("路飞", id);
+        log.info("请求次数：count_getUserById = {}", count_getUserById++);
+        log.info("user={}, name={}, age={}", user, user.getName(), user.getAge());
+        return user;
     }
 
 }

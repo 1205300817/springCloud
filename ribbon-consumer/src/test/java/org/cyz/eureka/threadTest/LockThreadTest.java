@@ -15,18 +15,13 @@ class LockThreadTest {
     public static void main(String[] args) {
         final LockThreadTest lockThreadTest = new LockThreadTest();
         for (int i = 0; i < 3; i++) {
-//            cachedThreadPool.submit(() -> {
-//                for (int j = 0; j < 10; j++) {
-//                    lockThreadTest.increase();
-//                }
-//            });
             final int index = i;
-            new Thread(() -> {
+            cachedThreadPool.submit(() -> {
                 Thread.currentThread().setName("Thread-" + index);
                 for (int j = 0; j < 10; j++) {
                     lockThreadTest.increase();
                 }
-            }).start();
+            });
         }
         // 主线程让步，进入Runnable(就绪状态)，等待其他线程执行结束
         while (Thread.activeCount() > 1) {
